@@ -29,6 +29,10 @@ public class EmailMain {
             switch (choice){
                 case "1":
                     email.showInformation();
+                    break;
+                case "2":
+                    email.changePassword();
+                    break;
             }
         }
 

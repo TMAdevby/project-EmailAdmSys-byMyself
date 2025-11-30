@@ -84,4 +84,20 @@ public class EMail {
         System.out.println("Вместимость почты : " + mailCapacity + " Mb");
         System.out.println("Запасной пароль : " + spare_email);
     }
+
+
+    public void changePassword() {
+        while (true) {
+            System.out.println("Хотите поменять пароль? Ответьте \"Y/y\" или \"N/n\" ");
+            String choice = String.valueOf(sc.next().charAt(0));
+            switch (choice.toLowerCase()){
+                case "y":
+                    System.out.println("Введите новый пароль: ");
+                    String newPassword = sc.next();
+                    password = newPassword;
+                    System.out.println("Установлен новый пероль: " + password);
+
+            }
+        }
+    }
 }
