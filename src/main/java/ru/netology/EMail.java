@@ -85,28 +85,31 @@ public class EMail {
         System.out.println("Запасной пароль : " + spare_email);
     }
 
-
     public void changePassword() {
-        boolean flag = false;
-        while (!flag) {
+        while (true) {
             System.out.println("Хотите поменять пароль? Ответьте \"Y/y\" или \"N/n\" ");
-            String choice = String.valueOf(sc.next().charAt(0));
-            switch (choice.toLowerCase()){
-                case "y":
-                    System.out.println("Введите новый пароль: ");
+            char choice = sc.next().charAt(0);
+            switch (Character.toLowerCase(choice)){
+                case 'y':
+                    System.out.println("Введите новый пароль. Минимум 6 символов ");
                     String newPassword = sc.next();
+                    if(newPassword == null || newPassword.length() < 6){
+                        System.out.println("Пароль слишком короткий, он должен содержать минимум 6 символов");
+                        continue;
+                    }
                     password = newPassword;
                     System.out.println("Установлен новый пероль: " + password);
-                    flag = true;
-                    break;
-                case "n":
+                    return;
+                case 'n':
                     System.out.println("Вы оставили старый пароль");
-                    flag = true;
-                    break;
+                    return;
                 default:
-                    System.out.println("Ответ не корректен. Попробуйте еще раз");
+                    System.out.println("Ответ не корректен. Введите \"Y/y\" или \"N/n\"");
                     break;
             }
         }
+    }
+
+    public void changeEmailCapacity() {
     }
 }

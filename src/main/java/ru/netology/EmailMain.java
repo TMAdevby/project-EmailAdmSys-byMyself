@@ -33,6 +33,9 @@ public class EmailMain {
                 case "2":
                     email.changePassword();
                     break;
+                case "3":
+                    email.changeEmailCapacity();
+                    break;
             }
         }
 
