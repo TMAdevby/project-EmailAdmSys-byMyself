@@ -87,7 +87,8 @@ public class EMail {
 
 
     public void changePassword() {
-        while (true) {
+        boolean flag = false;
+        while (!flag) {
             System.out.println("Хотите поменять пароль? Ответьте \"Y/y\" или \"N/n\" ");
             String choice = String.valueOf(sc.next().charAt(0));
             switch (choice.toLowerCase()){
@@ -96,7 +97,15 @@ public class EMail {
                     String newPassword = sc.next();
                     password = newPassword;
                     System.out.println("Установлен новый пероль: " + password);
-
+                    flag = true;
+                    break;
+                case "n":
+                    System.out.println("Вы оставили старый пароль");
+                    flag = true;
+                    break;
+                default:
+                    System.out.println("Ответ не корректен. Попробуйте еще раз");
+                    break;
             }
         }
     }
