@@ -73,4 +73,15 @@ public class EMail {
         }
         return pass.toString();
     }
+
+    public void showInformation(){
+        System.out.println("Информация о работнике:");
+        System.out.println("Имя : " + firstName);
+        System.out.println("Фамилия : " + lastName);
+        System.out.println("Департамент : " + department);
+        System.out.println("Email : " + email);
+        System.out.println("Пароль : " + password);
+        System.out.println("Вместимость почты : " + mailCapacity + " Mb");
+        System.out.println("Запасной пароль : " + spare_email);
+    }
 }
