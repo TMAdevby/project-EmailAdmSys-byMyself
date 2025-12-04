@@ -2,6 +2,11 @@ package ru.netology;
 
 import org.w3c.dom.ls.LSOutput;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.SecureRandom;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -166,5 +171,27 @@ public class EMail {
                 break;
             }
         }
+    }
+
+    public void writeToFile() {
+        Path path = Paths.get("D:\\ITStep\\2025\\Small progects\\emailsFile");
+        try {
+            Files.createDirectories(path.getParent());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String line = String.format("%s,%s,%s,%d,%s%n",
+                firstName + " " + lastName,
+                department,
+                email,
+                mailCapacity,
+                spare_email != null ? spare_email : ""
+        );
+        try(FileWriter writer = new FileWriter(path,true)){
+            writer.write(line);
+        } catch (IOException e) {
+            throw new RuntimeException("Ошибка записи в файл", e);
+        }
+
     }
 }

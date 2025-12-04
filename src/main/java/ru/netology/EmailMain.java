@@ -39,6 +39,9 @@ public class EmailMain {
                 case "4":
                     email.enterAlternEmail();
                     break;
+                case "5":
+                    email.writeToFile();
+                    break;
             }
         }
 
