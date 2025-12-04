@@ -13,9 +13,9 @@ public class EmailMain {
         System.out.println("Введите фамилию:");
         String lName = sc.next();
 
-        EMail email = new EMail(fName,lName);
+        EMail email = new EMail(fName, lName);
 
-        while (true){
+        while (true) {
             System.out.println("Выберите номер действия:\n" +
                     "1.Показать информацию о работнике\n" +
                     "2.Изменить пароль\n" +
@@ -26,7 +26,7 @@ public class EmailMain {
 
             String choice = sc.next();
 
-            switch (choice){
+            switch (choice) {
                 case "1":
                     email.showInformation();
                     break;

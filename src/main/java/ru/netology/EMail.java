@@ -19,7 +19,7 @@ public class EMail {
     private int mailCapacity = 500;
     private String spare_email;
 
-    public EMail(String firstName, String lastName){
+    public EMail(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
 
@@ -30,9 +30,9 @@ public class EMail {
         this.password = generatePassword(8);
     }
 
-    public String selectDepartment(){
+    public String selectDepartment() {
 
-        while(true){
+        while (true) {
             System.out.println("Введите номер департамента.\n1.Департамент продаж\n2.Разработка\n" +
                     "3.Бухгалтерия\n0.Нет департамента");
             String depNumber = sc.next();
@@ -59,7 +59,7 @@ public class EMail {
         return email;
     }
 
-    public String generatePassword(int length){
+    public String generatePassword(int length) {
         if (length <= 0) {
             throw new IllegalArgumentException("Password length must be positive");
         }
@@ -78,7 +78,7 @@ public class EMail {
         return pass.toString();
     }
 
-    public void showInformation(){
+    public void showInformation() {
         System.out.println("Информация о работнике:");
         System.out.println("Имя : " + firstName);
         System.out.println("Фамилия : " + lastName);
@@ -93,11 +93,11 @@ public class EMail {
         while (true) {
             System.out.println("Хотите поменять пароль? Ответьте \"Y/y\" или \"N/n\" ");
             char choice = sc.next().charAt(0);
-            switch (Character.toLowerCase(choice)){
+            switch (Character.toLowerCase(choice)) {
                 case 'y':
                     System.out.println("Введите новый пароль. Минимум 6 символов ");
                     String newPassword = sc.next();
-                    if(newPassword == null || newPassword.length() < 6){
+                    if (newPassword == null || newPassword.length() < 6) {
                         System.out.println("Пароль слишком короткий, он должен содержать минимум 6 символов");
                         continue;
                     }
@@ -124,20 +124,18 @@ public class EMail {
                     System.out.println("Введите желаемый размер ящика");
                     try {
                         int newCapacity = Integer.parseInt(sc.next());
-                        if(newCapacity < 0 ) {
+                        if (newCapacity < 0) {
                             System.out.println("Размер ящика не может быть отридцательным числом");
                             break;
-                        }
-                        else if(newCapacity > 100_000){
+                        } else if (newCapacity > 100_000) {
                             System.out.println("Размер не может быть больше 100 Гб");
                             break;
-                            }
-                        else{
+                        } else {
                             mailCapacity = newCapacity;
                             System.out.println("Установлен новый размер ящика " + newCapacity + " Mb");
                             return;
                         }
-                    }catch (NumberFormatException e){
+                    } catch (NumberFormatException e) {
                         System.out.println("Введено не целое число. Попробуйте снова");
                         break;
                     }
@@ -155,16 +153,16 @@ public class EMail {
         while (true) {
             System.out.println("Введите альтернативный email при надобности, если он не нужен введите 'N/n' ");
             String altEmail = sc.next();
-            if(altEmail.equalsIgnoreCase("n")){
+            if (altEmail.equalsIgnoreCase("n")) {
                 System.out.println("Альтернативный email не нужен");
                 return;
             }
-            if(altEmail.matches(EMAIL_PATTERN)){
-                System.out.println("Альтернативный email : " + altEmail );
+            if (altEmail.matches(EMAIL_PATTERN)) {
+                System.out.println("Альтернативный email : " + altEmail);
                 spare_email = altEmail;
                 return;
-            }else{
-                System.out.println("Введенный текст не может быть Emailом. Повторите ввод");
+            } else {
+                System.out.println("Некорректный email. Повторите ввод");
                 break;
             }
         }
