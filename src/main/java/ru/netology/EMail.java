@@ -111,6 +111,32 @@ public class EMail {
     }
 
     public void changeEmailCapacity() {
-        
+        while (true) {
+            System.out.println("Текущая вместимость ящика ровна " + mailCapacity + " Mb");
+            System.out.println("Хотите поменять вместимость ящика? Ответьте \"Y/y\" или \"N/n\" ");
+            char choice = sc.next().charAt(0);
+            switch (Character.toLowerCase(choice)) {
+                case 'y':
+                    System.out.println("Введите желаемый размер ящика");
+                    try {
+                        int newCapacity = Integer.parseInt(sc.next());
+                        if(newCapacity >= 0){
+                            System.out.println("Установлен новый размер ящик " + newCapacity + " Mb");
+                            return;
+                        }else {
+                            System.out.println("Размер ящика не может быть отридцательным числом");
+                            break;
+                        }
+                    }catch (NumberFormatException e){
+                        System.out.println("Введенное не является целым числом");
+                        break;
+                    }
+                case 'n':
+                    System.out.println("Размер ящика остался прежним");
+                    return;
+
+
+            }
+        }
     }
 }
