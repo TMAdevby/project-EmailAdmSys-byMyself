@@ -4,6 +4,7 @@ import org.w3c.dom.ls.LSOutput;
 
 import java.security.SecureRandom;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class EMail {
 
@@ -150,9 +151,25 @@ public class EMail {
     }
 
     public void enterAlternEmail() {
-        System.out.println("Введите альтернативный email при надобности, если он не нужен введите 'N/n' ");
-        String altEmail = sc.next();
-
-
+        while (true) {
+            System.out.println("Введите альтернативный email при надобности, если он не нужен введите 'N/n' ");
+            String altEmail = sc.next();
+            boolean result = altEmail.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*" +
+                    "@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
+            switch (altEmail.toLowerCase()){
+                case "n":
+                    System.out.println("Альтернативный email не нужен");
+                    return;
+                default:
+                    if (result){
+                        System.out.println("Альтернативный email : " + altEmail );
+                        spare_email = altEmail;
+                        return;
+                    }else{
+                        System.out.println("Введенный текст не может быть Emailом. Повторите ввод");
+                        break;
+                    }
+            }
+        }
     }
 }
