@@ -187,11 +187,10 @@ public class EMail {
                 mailCapacity,
                 spare_email != null ? spare_email : ""
         );
-        try(FileWriter writer = new FileWriter(path,true)){
+        try(FileWriter writer = new FileWriter(path.toFile(), true)){
             writer.write(line);
         } catch (IOException e) {
             throw new RuntimeException("Ошибка записи в файл", e);
         }
-
     }
 }

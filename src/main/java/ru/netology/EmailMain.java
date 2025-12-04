@@ -6,6 +6,7 @@ import java.util.Scanner;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class EmailMain {
     public static void main(String[] args) {
+        System.out.println("Java version: " + System.getProperty("java.version"));
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Введите имя:");
