@@ -126,7 +126,7 @@ public class EMail {
                             System.out.println("Размер ящика не может быть отридцательным числом");
                             break;
                         }
-                        else if(newCapacity >= 100_000){
+                        else if(newCapacity > 100_000){
                             System.out.println("Размер не может быть больше 100 Гб");
                             break;
                             }
@@ -137,14 +137,22 @@ public class EMail {
                         }
                     }catch (NumberFormatException e){
                         System.out.println("Введено не целое число. Попробуйте снова");
+                        break;
                     }
                 case 'n':
                     System.out.println("Размер ящика остался прежним");
-                    return;
+                    break;
                 default:
                     System.out.println("Ответ не корректен. Введите \"Y/y\" или \"N/n\"");
                     break;
             }
         }
+    }
+
+    public void enterAlternEmail() {
+        System.out.println("Введите альтернативный email при надобности, если он не нужен введите 'N/n' ");
+        String altEmail = sc.next();
+
+
     }
 }

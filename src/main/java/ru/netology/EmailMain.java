@@ -36,6 +36,9 @@ public class EmailMain {
                 case "3":
                     email.changeEmailCapacity();
                     break;
+                case "4":
+                    email.enterAlternEmail();
+                    break;
             }
         }
 
