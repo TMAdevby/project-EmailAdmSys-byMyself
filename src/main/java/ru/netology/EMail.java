@@ -1,5 +1,7 @@
 package ru.netology;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.security.SecureRandom;
 import java.util.Scanner;
 
@@ -120,22 +122,28 @@ public class EMail {
                     System.out.println("Введите желаемый размер ящика");
                     try {
                         int newCapacity = Integer.parseInt(sc.next());
-                        if(newCapacity >= 0){
-                            System.out.println("Установлен новый размер ящик " + newCapacity + " Mb");
-                            return;
-                        }else {
+                        if(newCapacity < 0 ) {
                             System.out.println("Размер ящика не может быть отридцательным числом");
                             break;
                         }
+                        else if(newCapacity >= 100_000){
+                            System.out.println("Размер не может быть больше 100 Гб");
+                            break;
+                            }
+                        else{
+                            mailCapacity = newCapacity;
+                            System.out.println("Установлен новый размер ящика " + newCapacity + " Mb");
+                            return;
+                        }
                     }catch (NumberFormatException e){
-                        System.out.println("Введенное не является целым числом");
-                        break;
+                        System.out.println("Введено не целое число. Попробуйте снова");
                     }
                 case 'n':
                     System.out.println("Размер ящика остался прежним");
                     return;
-
-
+                default:
+                    System.out.println("Ответ не корректен. Введите \"Y/y\" или \"N/n\"");
+                    break;
             }
         }
     }
