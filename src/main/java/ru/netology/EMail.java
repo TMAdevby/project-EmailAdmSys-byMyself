@@ -7,7 +7,8 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class EMail {
-
+    private static final String EMAIL_PATTERN =
+            "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     Scanner sc = new Scanner(System.in);
 
     private String firstName;
@@ -154,21 +155,17 @@ public class EMail {
         while (true) {
             System.out.println("Введите альтернативный email при надобности, если он не нужен введите 'N/n' ");
             String altEmail = sc.next();
-            boolean result = altEmail.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*" +
-                    "@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
-            switch (altEmail.toLowerCase()){
-                case "n":
-                    System.out.println("Альтернативный email не нужен");
-                    return;
-                default:
-                    if (result){
-                        System.out.println("Альтернативный email : " + altEmail );
-                        spare_email = altEmail;
-                        return;
-                    }else{
-                        System.out.println("Введенный текст не может быть Emailом. Повторите ввод");
-                        break;
-                    }
+            if(altEmail.equalsIgnoreCase("n")){
+                System.out.println("Альтернативный email не нужен");
+                return;
+            }
+            if(altEmail.matches(EMAIL_PATTERN)){
+                System.out.println("Альтернативный email : " + altEmail );
+                spare_email = altEmail;
+                return;
+            }else{
+                System.out.println("Введенный текст не может быть Emailом. Повторите ввод");
+                break;
             }
         }
     }
