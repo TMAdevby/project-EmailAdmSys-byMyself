@@ -21,8 +21,8 @@ public class EmailMain {
                         "4.Ввести альтернативный email\n" +
                         "5.Записать в файл\n" +
                         "6.Прочитать из файа\n" +
-                        "7.Сериализовать в файл\n" +
-                        "8.Десериализовать из файла\n" +
+//                        "7.Сериализовать в файл\n" +
+//                        "8.Десериализовать из файла\n" +
                         "0.Выйти"
                 );
 
@@ -47,12 +47,12 @@ public class EmailMain {
                     case "6":
                         email.readFromFile();
                         break;
-                    case "7":
-                        email.serializeToFile(email);
-                        break;
-                    case "8":
-                        email.deserializeFromFile();
-                        break;
+//                    case "7":
+//                        email.serializeToFile(email);
+//                        break;
+//                    case "8":
+//                        email.deserializeFromFile();
+//                        break;
                     case "0":
                         System.out.println("Выход из программы");
                         return;
