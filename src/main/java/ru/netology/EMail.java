@@ -189,6 +189,7 @@ public class EMail implements Serializable {
 
         try(BufferedWriter bufferedWriter = Files.newBufferedWriter(path)){
             bufferedWriter.write(line);
+            System.out.println("Информация записана");
         } catch (IOException e) {
             throw new RuntimeException("Ошибка записи в файл",e);
         }
@@ -206,20 +207,19 @@ public class EMail implements Serializable {
         }
     }
 
-    public void serializeToFile() {
+    public void serializeToFile(EMail email) {
         Path path = Paths.get("employee.bin");
         try {
             Files.createDirectories(path.getParent());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-                    new FileOutputStream("employee.bin"));
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+                new FileOutputStream("employee.bin"))){
+            objectOutputStream.writeObject(email);
+            System.out.println("объект сериализован");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        objectOutputStream
-
     }
 }

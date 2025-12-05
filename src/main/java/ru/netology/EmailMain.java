@@ -47,7 +47,7 @@ public class EmailMain {
                     email.readFromFile();
                     break;
                 case "7":
-                    email.serializeToFile();
+                    email.serializeToFile(email);
                     break;
             }
         }
