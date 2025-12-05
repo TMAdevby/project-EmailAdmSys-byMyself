@@ -1,19 +1,21 @@
 package ru.netology;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Pattern;
+
 
 public class EMail implements Serializable {
     private static final String EMAIL_PATTERN =
             "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-    Scanner sc = new Scanner(System.in);
+    private transient Scanner sc = new Scanner(System.in);
 
     private String firstName;
     private String lastName;
@@ -90,7 +92,7 @@ public class EMail implements Serializable {
         System.out.println("Email : " + email);
         System.out.println("Пароль : " + password);
         System.out.println("Вместимость почты : " + mailCapacity + " Mb");
-        System.out.println("Запасной пароль : " + spare_email);
+        System.out.println("Запасная почта : " + spare_email);
     }
 
     public void changePassword() {
@@ -175,7 +177,7 @@ public class EMail implements Serializable {
     public void writeToFile() {
         Path path = Paths.get("D:\\ITStep\\2025\\Small progects\\emailsFile");
         try {
-            Files.createDirectories(path.getParent());
+                Files.createDirectories(path.getParent());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -187,7 +189,10 @@ public class EMail implements Serializable {
                 spare_email != null ? spare_email : ""
         );
 
-        try(BufferedWriter bufferedWriter = Files.newBufferedWriter(path)){
+        try(BufferedWriter bufferedWriter = Files.newBufferedWriter(path,
+                StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.APPEND)){
             bufferedWriter.write(line);
             System.out.println("Информация записана");
         } catch (IOException e) {
@@ -207,19 +212,46 @@ public class EMail implements Serializable {
         }
     }
 
-    public void serializeToFile(EMail email) {
+    public void serializeToFile(Serializable email) {
         Path path = Paths.get("employee.bin");
-        try {
-            Files.createDirectories(path.getParent());
+        Path parent = path.getParent();
+        if (parent != null) {
+            try {
+                Files.createDirectories(parent);
+            } catch (IOException e) {
+                throw new RuntimeException("Не удалось создать директорию", e);
+            }
+        }
+        try try (FileOutputStream fos = new FileOutputStream(path.toFile(), true);
+                 // Обёртка, чтобы пропустить заголовок при APPEND
+                 MyObjectOutputStream oos = new MyObjectOutputStream(fos)) {
+            oos.writeObject(email);
+            System.out.println("Объект сериализован и добавлен в файл");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-                new FileOutputStream("employee.bin"))){
-            objectOutputStream.writeObject(email);
-            System.out.println("объект сериализован");
+    }
+
+    public List<EMail> deserializeFromFile() {
+        Path path = Paths.get("employee.bin");
+        List<EMail> emails = new ArrayList<>();
+        try(ObjectInputStream objectInputStream = new ObjectInputStream(
+                Files.newInputStream(path))) {
+            while(true){
+                EMail email = (EMail) objectInputStream.readObject();
+                emails.add(email);
+                System.out.println(email);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("Класс EMail не найден",e);
         } catch (IOException e) {
+            if (e instanceof EOFException) {
+            } else {
+                throw new RuntimeException("Ошибка чтения файла", e);
+            }
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        return emails;
     }
 }
