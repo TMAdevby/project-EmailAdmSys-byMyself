@@ -43,6 +43,9 @@ public class EmailMain {
                 case "5":
                     email.writeToFile();
                     break;
+                case "6":
+                    email.readFromFile();
+                    break;
             }
         }
 

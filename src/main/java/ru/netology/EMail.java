@@ -2,8 +2,7 @@ package ru.netology;
 
 import org.w3c.dom.ls.LSOutput;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -187,10 +186,23 @@ public class EMail {
                 mailCapacity,
                 spare_email != null ? spare_email : ""
         );
-        try(FileWriter writer = new FileWriter(path.toFile(), true)){
-            writer.write(line);
+
+        try(BufferedWriter bufferedWriter = Files.newBufferedWriter(path)){
+            bufferedWriter.write(line);
         } catch (IOException e) {
-            throw new RuntimeException("Ошибка записи в файл", e);
+            throw new RuntimeException("Ошибка записи в файл",e);
+        }
+    }
+
+    public void readFromFile() {
+        Path path = Paths.get("D:\\ITStep\\2025\\Small progects\\emailsFile");
+        try(BufferedReader bufferedReader = Files.newBufferedReader(path)){
+            String line;
+            while ((line = bufferedReader.readLine()) != null){
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Ошибка чтения из файла",e);
         }
     }
 }
