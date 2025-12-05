@@ -10,7 +10,7 @@ import java.security.SecureRandom;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class EMail {
+public class EMail implements Serializable {
     private static final String EMAIL_PATTERN =
             "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     Scanner sc = new Scanner(System.in);
@@ -204,5 +204,22 @@ public class EMail {
         } catch (IOException e) {
             throw new RuntimeException("Ошибка чтения из файла",e);
         }
+    }
+
+    public void serializeToFile() {
+        Path path = Paths.get("employee.bin");
+        try {
+            Files.createDirectories(path.getParent());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+                    new FileOutputStream("employee.bin"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        objectOutputStream
+
     }
 }
